@@ -80,7 +80,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
         if (!this.at$shouldTranslate) return;
         if (this.at$translatedContents == null) return;
         try {
-            if (ScreenTranslationHelper.shouldTranslate(Minecraft.getInstance().screen)) {
+            if (ScreenTranslationHelper.shouldTranslate(ScreenTranslationHelper.getCurrentScreen())) {
                 if (this.decomposedWith != Language.getInstance()) {
                     this.at$translatedVisualOrderText = null;
                 }
@@ -97,7 +97,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
     @ModifyArg(method = "getVisualOrderText", at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;getVisualOrder(Lnet/minecraft/network/chat/FormattedText;)Lnet/minecraft/util/FormattedCharSequence;"))
     private FormattedText getVisualOrderTextMixin(FormattedText var1) {
         MutableComponent component = this.copy();
-        ((MutableComponentAccessor) (Object) (Object) (Object) component).at$shouldTranslate(false);
+        ((MutableComponentAccessor) (Object) (Object) component).at$shouldTranslate(false);
         return component;
     }
 
