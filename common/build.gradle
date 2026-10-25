@@ -23,8 +23,16 @@ sourceSets {
             // Patchouli has no Minecraft 26.3 release yet; keep its optional
             // compatibility mixins out of this target until the API is ported.
             exclude 'me/langyue/autotranslation/mixin/compat/patchouli/**'
+            // Legacy overlay rendering APIs were removed in Minecraft 26.1+.
+            exclude 'me/langyue/autotranslation/gui/widgets/AutoTranslationIcon.java'
+            exclude 'me/langyue/autotranslation/mixin/GameRendererMixin.java'
+            exclude 'me/langyue/autotranslation/mixin/EditBoxMixin.java'
         }
     }
+}
+
+dependencies {
+    implementation "org.apache.httpcomponents:httpclient:4.5.14"
 }
 
 publishing {
