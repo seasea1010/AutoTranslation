@@ -46,14 +46,14 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
 
     @Inject(method = "create", at = @At("RETURN"))
     private static void initMixin(ComponentContents componentContents, CallbackInfoReturnable<MutableComponent> cir) {
-        ((MutableComponentAccessor) (Object) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof PlainTextContents);
+        ((MutableComponentAccessor) (Object) (Object) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof PlainTextContents);
     }
 
     @Inject(method = "getContents", at = @At("HEAD"), cancellable = true)
     private void getContentsMixin(CallbackInfoReturnable<ComponentContents> cir) {
         if (!this.at$shouldTranslate) return;
         try {
-            if (ScreenTranslationHelper.shouldTranslate(Minecraft.getInstance().screen())) {
+            if (ScreenTranslationHelper.shouldTranslate(ScreenTranslationHelper.getCurrentScreen())) {
                 if (this.decomposedWith != Language.getInstance()) {
                     this.at$translatedContents = null;
                 }
@@ -64,7 +64,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
                 if (this.contents instanceof LiteralContents literalContents) {
                     String text = literalContents.text();
                     if (TranslatorHelper.shouldTranslate(text)) {
-                        TranslatorHelper.translate(text, translate -> at$translatedContents = new PlainTextContents(translate));
+                        TranslatorHelper.translate(text, translate -> at$translatedContents = Component.literal(translate).getContents());
                         if (this.at$translatedContents != null) {
                             cir.setReturnValue(this.at$translatedContents);
                         }
@@ -97,7 +97,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
     @ModifyArg(method = "getVisualOrderText", at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;getVisualOrder(Lnet/minecraft/network/chat/FormattedText;)Lnet/minecraft/util/FormattedCharSequence;"))
     private FormattedText getVisualOrderTextMixin(FormattedText var1) {
         MutableComponent component = this.copy();
-        ((MutableComponentAccessor) (Object) component).at$shouldTranslate(false);
+        ((MutableComponentAccessor) (Object) (Object) component).at$shouldTranslate(false);
         return component;
     }
 
