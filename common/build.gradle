@@ -16,7 +16,6 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     compileOnly "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}"
-    compileOnly("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
 }
 
 publishing {
