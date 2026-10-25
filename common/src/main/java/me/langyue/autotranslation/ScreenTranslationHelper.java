@@ -116,8 +116,8 @@ public class ScreenTranslationHelper {
         if (screen == null) return;
         boolean inBlacklist = isInBlacklist(screen);
         ScreenAccessor screenAccessor = (ScreenAccessor) screen;
-        screenAccessor.at$shouldTranslate(!inBlacklist && WHITELIST.contains(getClassName(screen)));
-        screenAccessor.at$showIcon(!inBlacklist);
+        screenAccessor.at$shouldTranslate(!inBlacklist);
+        screenAccessor.at$showIcon(false);
     }
 
     /**
