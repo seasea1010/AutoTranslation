@@ -6,7 +6,7 @@ import me.langyue.autotranslation.config.Config;
 import me.langyue.autotranslation.resource.ResourceManager;
 import net.minecraft.client.resources.language.ClientLanguage;
 import net.minecraft.locale.Language;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
@@ -54,7 +54,7 @@ public class ClientLanguageMixin {
             String file = String.format(Locale.ROOT, "lang/%s.json", lang);
             for (String namespace : resourceManager.getNamespaces()) {
                 try {
-                    ResourceLocation resourceLocation = new ResourceLocation(namespace, file);
+                    Identifier resourceLocation = Identifier.fromNamespaceAndPath(namespace, file);
                     autoTranslation$appendFrom(lang, namespace, resourceManager.getResourceStack(resourceLocation), map);
                 } catch (Exception exception) {
                     LOGGER.warn("Skipped language file: {}:{} ({})", namespace, file, exception.toString());
