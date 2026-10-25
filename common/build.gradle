@@ -15,7 +15,16 @@ dependencies {
     implementation("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    compileOnly "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}"
+}
+
+sourceSets {
+    main {
+        java {
+            // Patchouli has no Minecraft 26.3 release yet; keep its optional
+            // compatibility mixins out of this target until the API is ported.
+            exclude 'me/langyue/autotranslation/mixin/compat/patchouli/**'
+        }
+    }
 }
 
 publishing {
