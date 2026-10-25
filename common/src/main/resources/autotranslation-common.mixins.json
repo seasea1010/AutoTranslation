@@ -14,9 +14,7 @@
   "client": [
     "ChatComponentMixin",
     "ClientLanguageMixin",
-    "EditBoxMixin",
     "FontMixin",
-    "GameRendererMixin",
     "MutableComponentMixin",
     "ScreenMixin",
     "TooltipMixin"
