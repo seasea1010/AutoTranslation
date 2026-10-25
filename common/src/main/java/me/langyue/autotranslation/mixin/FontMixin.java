@@ -19,7 +19,7 @@ public class FontMixin {
 
     @Unique
     private String at$getTranslate(String content) {
-        if (ScreenTranslationHelper.shouldTranslate(Minecraft.getInstance().screen)) {
+        if (ScreenTranslationHelper.shouldTranslate(Minecraft.getInstance().screen())) {
             if (TranslatorHelper.shouldTranslate(content)) {
                 String t = TranslatorHelper.translate(content, null);
                 if (t != null) {
