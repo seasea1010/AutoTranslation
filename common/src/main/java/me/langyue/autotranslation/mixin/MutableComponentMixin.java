@@ -6,7 +6,7 @@ import me.langyue.autotranslation.accessor.MutableComponentAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.*;
-import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.PlainTextContents;
 import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,14 +46,14 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
 
     @Inject(method = "create", at = @At("RETURN"))
     private static void initMixin(ComponentContents componentContents, CallbackInfoReturnable<MutableComponent> cir) {
-        ((MutableComponentAccessor) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof LiteralContents);
+        ((MutableComponentAccessor) (Object) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof PlainTextContents);
     }
 
     @Inject(method = "getContents", at = @At("HEAD"), cancellable = true)
     private void getContentsMixin(CallbackInfoReturnable<ComponentContents> cir) {
         if (!this.at$shouldTranslate) return;
         try {
-            if (ScreenTranslationHelper.shouldTranslate(Minecraft.getInstance().screen)) {
+            if (ScreenTranslationHelper.shouldTranslate(Minecraft.getInstance().screen())) {
                 if (this.decomposedWith != Language.getInstance()) {
                     this.at$translatedContents = null;
                 }
@@ -64,7 +64,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
                 if (this.contents instanceof LiteralContents literalContents) {
                     String text = literalContents.text();
                     if (TranslatorHelper.shouldTranslate(text)) {
-                        TranslatorHelper.translate(text, translate -> at$translatedContents = new LiteralContents(translate));
+                        TranslatorHelper.translate(text, translate -> at$translatedContents = new PlainTextContents(translate));
                         if (this.at$translatedContents != null) {
                             cir.setReturnValue(this.at$translatedContents);
                         }
@@ -97,7 +97,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
     @ModifyArg(method = "getVisualOrderText", at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;getVisualOrder(Lnet/minecraft/network/chat/FormattedText;)Lnet/minecraft/util/FormattedCharSequence;"))
     private FormattedText getVisualOrderTextMixin(FormattedText var1) {
         MutableComponent component = this.copy();
-        ((MutableComponentAccessor) component).at$shouldTranslate(false);
+        ((MutableComponentAccessor) (Object) component).at$shouldTranslate(false);
         return component;
     }
 
@@ -125,7 +125,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
         component.setStyle(this.style);
         for (Component sibling : this.siblings) {
             if (sibling instanceof MutableComponent mutableComponent) {
-                MutableComponentAccessor accessor = (MutableComponentAccessor) mutableComponent;
+                MutableComponentAccessor accessor = (MutableComponentAccessor) (Object) mutableComponent;
                 temp = accessor.at$shouldTranslate();
                 accessor.at$shouldTranslate(false);
                 component.append(mutableComponent.copy());
