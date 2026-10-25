@@ -31,7 +31,7 @@ public class TooltipMixin {
     private void toCharSequenceMixin(Minecraft minecraft, CallbackInfoReturnable<List<FormattedCharSequence>> cir) {
         MutableComponentAccessor componentAccessor = (MutableComponentAccessor) this.message;
         if (componentAccessor.at$shouldTranslate()) {
-            if (ScreenTranslationHelper.shouldTranslate(minecraft.screen())) {
+            if (ScreenTranslationHelper.shouldTranslate(ScreenTranslationHelper.getCurrentScreen())) {
                 if (componentAccessor.at$decomposedWith() != Language.getInstance()) {
                     this.at$translatedTooltip = null;
                 }
