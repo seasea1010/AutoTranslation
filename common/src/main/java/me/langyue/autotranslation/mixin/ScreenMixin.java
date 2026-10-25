@@ -1,6 +1,5 @@
 package me.langyue.autotranslation.mixin;
 
-import me.langyue.autotranslation.AutoTranslation;
 import me.langyue.autotranslation.ScreenTranslationHelper;
 import me.langyue.autotranslation.accessor.ScreenAccessor;
 import net.minecraft.client.gui.screens.Screen;
@@ -22,14 +21,6 @@ public class ScreenMixin implements ScreenAccessor {
 
     @Unique
     private final Screen autoTranslation$_this = (Screen) (Object) this;
-
-    @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
-    private void keyPressedMixin(int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        if (AutoTranslation.SCREEN_TRANSLATE_KEYMAPPING.isDown()) {
-            ScreenTranslationHelper.toggleScreenStatus(autoTranslation$_this);
-            cir.setReturnValue(true);
-        }
-    }
 
     @Inject(method = "init(Lnet/minecraft/client/Minecraft;II)V", at = @At("HEAD"))
     private void initMixin(CallbackInfo ci) {
