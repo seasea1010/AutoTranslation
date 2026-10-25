@@ -1,3 +1,7 @@
+architectury {
+    common("fabric")
+}
+
 dependencies {
     // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
     // Do NOT use other classes from fabric loader
@@ -9,10 +13,6 @@ dependencies {
     }
     modImplementation "vazkii.patchouli:Patchouli:${rootProject.patchouli_version}"
     modImplementation("dev.ftb.mods:ftb-library:${rootProject.ftb_library_version}") { transitive false }
-}
-
-architectury {
-    common("fabric")
 }
 
 publishing {
