@@ -1,9 +1,7 @@
 package me.langyue.autotranslation;
 
-import com.mojang.realmsclient.RealmsMainScreen;
 import me.langyue.autotranslation.accessor.ScreenAccessor;
 import me.langyue.autotranslation.util.FileUtils;
-import me.shedaniel.clothconfig2.gui.ClothConfigScreen;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -26,7 +24,6 @@ public class ScreenTranslationHelper {
     // MC 代码加密的，编译后包名就变了，所以只能这样
     private static final Set<String> MC_SCREEN = new LinkedHashSet<>() {{
         add(TitleScreen.class.getPackageName());
-        add(RealmsMainScreen.class.getPackageName());
     }};
 
     private static final Set<String> WHITELIST = new LinkedHashSet<>();
@@ -39,12 +36,10 @@ public class ScreenTranslationHelper {
         add(StructureBlockEditScreen.class.getName());
         add(MinecartCommandBlockEditScreen.class.getName());
         add(JigsawBlockEditScreen.class.getName());
-        add("dev.ftb.mods.ftblibrary.config.ui.");
         add("dev.ftb.mods.ftbquests.client.gui.SelectQuestObjectScreen");
         add("dev.ftb.mods.ftbquests.client.gui.MultilineTextEditorScreen");
         add("dev.ftb.mods.ftbquests.client.gui.RewardTablesScreen");
         add("dev.ftb.mods.ftbquests.client.gui.quests.QuestScreen");
-        add(ClothConfigScreen.class.getName());
     }};
 
     private static boolean needSave = false;
@@ -154,9 +149,6 @@ public class ScreenTranslationHelper {
     private static String getClassName(Screen screen) {
         try {
             // FTB 兼容
-            if (screen instanceof dev.ftb.mods.ftblibrary.ui.ScreenWrapper screenWrapper) {
-                return screenWrapper.getGui().getClass().getName();
-            }
         } catch (Throwable ignored) {
         }
         String className = screen.getClass().getName();
