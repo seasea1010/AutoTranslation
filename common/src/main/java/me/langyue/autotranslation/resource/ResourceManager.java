@@ -77,7 +77,7 @@ public class ResourceManager {
 
     public static void createPackMeta() {
         JsonObject pack = new JsonObject();
-        pack.addProperty("pack_format", SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES));
+        pack.addProperty("pack_format", SharedConstants.getCurrentVersion().packVersion(PackType.CLIENT_RESOURCES));
         pack.addProperty("description", language.getOrDefault("pack.mcmeta.description") + "\n" + DateFormatUtils.ISO_8601_EXTENDED_DATETIME_FORMAT.format(System.currentTimeMillis()));
         JsonObject mcmeta = new JsonObject();
         mcmeta.add("pack", pack);
