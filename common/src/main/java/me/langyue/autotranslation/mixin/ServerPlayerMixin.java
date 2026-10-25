@@ -15,7 +15,7 @@ public class ServerPlayerMixin {
     @Inject(method = "sendSystemMessage(Lnet/minecraft/network/chat/Component;Z)V", at = @At("HEAD"))
     private void sendSystemMessageMixin(Component component, boolean bl, CallbackInfo ci) {
         if (component instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 }
