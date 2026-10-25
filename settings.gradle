@@ -10,4 +10,4 @@ pluginManagement {
 
 include("common")
 include("fabric")
-include("forge")
+// Fabric-only port; the legacy Forge module targets Minecraft 1.20.2.
