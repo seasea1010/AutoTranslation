@@ -16,14 +16,14 @@ public class MinecraftServerMixin {
     @Inject(method = "sendSystemMessage", at = @At("HEAD"))
     private void sendSystemMessageMixin(Component component, CallbackInfo ci) {
         if (component instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
     @Inject(method = "logChatMessage", at = @At("HEAD"))
     private void logChatMessageMixin(Component component, ChatType.Bound bound, String string, CallbackInfo ci) {
         if (component instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 }
