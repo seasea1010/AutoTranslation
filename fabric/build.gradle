@@ -24,6 +24,15 @@ dependencies {
 
     implementation project(":common")
 }
+sourceSets {
+    main {
+        java {
+            // The legacy overlay renderer targets pre-26.1 GUI APIs.
+            exclude 'me/langyue/autotranslation/fabric/mixin/GameRendererMixin.java'
+        }
+    }
+}
+
 version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}-fabric"
 
 processResources {
