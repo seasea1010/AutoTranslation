@@ -16,35 +16,35 @@ public class EntityMixin {
     @Inject(method = "setCustomName", at = @At("HEAD"))
     private void setCustomNameMixin(Component component, CallbackInfo ci) {
         if (component instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
     @Inject(method = "getName", at = @At("RETURN"))
     private void getNameMixin(CallbackInfoReturnable<Component> cir) {
         if (cir.getReturnValue() instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
     @Inject(method = "getTypeName", at = @At("RETURN"))
     private void getTypeNameMixin(CallbackInfoReturnable<Component> cir) {
         if (cir.getReturnValue() instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
     @Inject(method = "getDisplayName", at = @At("RETURN"))
     private void getDisplayNameMixin(CallbackInfoReturnable<Component> cir) {
         if (cir.getReturnValue() instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
     @Inject(method = "sendSystemMessage", at = @At("HEAD"))
     private void sendSystemMessageMixin(Component component, CallbackInfo ci) {
         if (component instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
