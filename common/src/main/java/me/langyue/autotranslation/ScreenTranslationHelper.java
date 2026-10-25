@@ -20,6 +20,15 @@ public class ScreenTranslationHelper {
 
     private static final Path file = AutoTranslation.ROOT.resolve("screen.whitelist");
     private static boolean ready = false;
+    private static Screen currentScreen;
+
+    public static void setCurrentScreen(Screen screen) {
+        currentScreen = screen;
+    }
+
+    public static Screen getCurrentScreen() {
+        return currentScreen;
+    }
 
     // MC 代码加密的，编译后包名就变了，所以只能这样
     private static final Set<String> MC_SCREEN = new LinkedHashSet<>() {{
