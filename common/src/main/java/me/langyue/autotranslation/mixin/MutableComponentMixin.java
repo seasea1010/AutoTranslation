@@ -46,7 +46,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
 
     @Inject(method = "create", at = @At("RETURN"))
     private static void initMixin(ComponentContents componentContents, CallbackInfoReturnable<MutableComponent> cir) {
-        ((MutableComponentAccessor) (Object) (Object) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof PlainTextContents);
+        ((MutableComponentAccessor) (Object) (Object) (Object) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof PlainTextContents);
     }
 
     @Inject(method = "getContents", at = @At("HEAD"), cancellable = true)
@@ -97,7 +97,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
     @ModifyArg(method = "getVisualOrderText", at = @At(value = "INVOKE", target = "Lnet/minecraft/locale/Language;getVisualOrder(Lnet/minecraft/network/chat/FormattedText;)Lnet/minecraft/util/FormattedCharSequence;"))
     private FormattedText getVisualOrderTextMixin(FormattedText var1) {
         MutableComponent component = this.copy();
-        ((MutableComponentAccessor) (Object) (Object) component).at$shouldTranslate(false);
+        ((MutableComponentAccessor) (Object) (Object) (Object) component).at$shouldTranslate(false);
         return component;
     }
 
