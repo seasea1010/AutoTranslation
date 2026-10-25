@@ -25,7 +25,7 @@ public class ScreenMixin implements ScreenAccessor {
 
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     private void keyPressedMixin(int i, int j, int k, CallbackInfoReturnable<Boolean> cir) {
-        if (AutoTranslation.SCREEN_TRANSLATE_KEYMAPPING.matches(i, j)) {
+        if (AutoTranslation.SCREEN_TRANSLATE_KEYMAPPING.isDown()) {
             ScreenTranslationHelper.toggleScreenStatus(autoTranslation$_this);
             cir.setReturnValue(true);
         }
