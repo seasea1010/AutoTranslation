@@ -46,7 +46,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
 
     @Inject(method = "create", at = @At("RETURN"))
     private static void initMixin(ComponentContents componentContents, CallbackInfoReturnable<MutableComponent> cir) {
-        ((MutableComponentAccessor) (Object) (Object) (Object) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof PlainTextContents);
+        ((MutableComponentAccessor) (Object) cir.getReturnValue()).at$shouldTranslate(componentContents instanceof PlainTextContents);
     }
 
     @Inject(method = "getContents", at = @At("HEAD"), cancellable = true)
@@ -61,7 +61,7 @@ public abstract class MutableComponentMixin implements MutableComponentAccessor,
                     cir.setReturnValue(this.at$translatedContents);
                     return;
                 }
-                if (this.contents instanceof LiteralContents literalContents) {
+                if (this.contents instanceof PlainTextContents literalContents) {
                     String text = literalContents.text();
                     if (TranslatorHelper.shouldTranslate(text)) {
                         TranslatorHelper.translate(text, translate -> at$translatedContents = Component.literal(translate).getContents());
