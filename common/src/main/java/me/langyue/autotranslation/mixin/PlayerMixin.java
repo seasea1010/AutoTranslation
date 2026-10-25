@@ -15,14 +15,14 @@ public class PlayerMixin {
     @Inject(method = "getName", at = @At("RETURN"))
     private void getNameMixin(CallbackInfoReturnable<Component> cir) {
         if (cir.getReturnValue() instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
     @Inject(method = "getDisplayName", at = @At("RETURN"))
     private void getDisplayNameMixin(CallbackInfoReturnable<Component> cir) {
         if (cir.getReturnValue() instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
