@@ -77,7 +77,14 @@ public class ResourceManager {
 
     public static void createPackMeta() {
         JsonObject pack = new JsonObject();
-        pack.addProperty("pack_format", SharedConstants.getCurrentVersion().packVersion(PackType.CLIENT_RESOURCES));
+        com.google.gson.JsonArray minFormat = new com.google.gson.JsonArray();
+        minFormat.add(97);
+        minFormat.add(1);
+        com.google.gson.JsonArray maxFormat = new com.google.gson.JsonArray();
+        maxFormat.add(97);
+        maxFormat.add(1);
+        pack.add("min_format", minFormat);
+        pack.add("max_format", maxFormat);
         pack.addProperty("description", language.getOrDefault("pack.mcmeta.description") + "\n" + DateFormatUtils.ISO_8601_EXTENDED_DATETIME_FORMAT.format(System.currentTimeMillis()));
         JsonObject mcmeta = new JsonObject();
         mcmeta.add("pack", pack);
