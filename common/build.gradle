@@ -27,6 +27,7 @@ sourceSets {
             exclude 'me/langyue/autotranslation/gui/widgets/AutoTranslationIcon.java'
             exclude 'me/langyue/autotranslation/mixin/GameRendererMixin.java'
             exclude 'me/langyue/autotranslation/mixin/EditBoxMixin.java'
+            exclude 'me/langyue/autotranslation/mixin/ChatComponentMixin.java'
         }
     }
 }
