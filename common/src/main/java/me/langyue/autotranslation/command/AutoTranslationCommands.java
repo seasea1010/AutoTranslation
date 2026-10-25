@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import me.langyue.autotranslation.AutoTranslation;
 import me.langyue.autotranslation.resource.ResourceManager;
-import net.minecraft.ResourceLocationException;
+
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -32,7 +32,7 @@ public class AutoTranslationCommands {
                                     String namespace = c.getArgument(ResourcePathArgument.NAME, String.class);
                                     try {
                                         ResourceManager.loadResource(namespace);
-                                    } catch (ResourceLocationException re) {
+                                    } catch (IllegalArgumentException re) {
                                         return feedback(c.getSource(), Component.translatable("commands.autotranslation.command.error.invalid_namespace", namespace), false);
                                     } catch (Throwable e) {
                                         return feedback(c.getSource(), Component.translatable("commands.autotranslation.command.error.reload"), false);
