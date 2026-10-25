@@ -1,5 +1,4 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
     id "com.matthewprenger.cursegradle"
     id "com.modrinth.minotaur"
 }
@@ -7,14 +6,6 @@ plugins {
 architectury {
     platformSetupLoomIde()
     fabric()
-}
-
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
 }
 
 dependencies {
@@ -31,8 +22,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+    implementation project(":common")
 }
 version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}-fabric"
 
@@ -44,39 +34,16 @@ processResources {
     }
 }
 
-shadowJar {
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier.set("dev-shadow")
-}
-
-remapJar {
-    inputFile.set shadowJar.archiveFile
-    dependsOn shadowJar
-    archiveClassifier.set(null)
-}
-
 jar {
-    archiveClassifier.set("dev")
+    // Minecraft 26.1+ is unobfuscated; package shared classes/resources directly.
+    from project(":common").sourceSets.main.output
+    archiveClassifier.set(null)
 }
 
 sourcesJar {
     def commonSources = project(":common").sourcesJar
     dependsOn commonSources
     from commonSources.archiveFile.map { zipTree(it) }
-}
-
-task copy(type: Copy) {
-    from "${project.buildDir}/libs"
-    into "${rootProject.buildDir}/libs"
-    dependsOn remapJar
-}
-
-build.finalizedBy(copy)
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
 }
 
 publishing {
@@ -105,7 +72,7 @@ if (CURSEFORGE_TOKEN) {
             addGameVersion "Fabric"
             addGameVersion "Java 17"
             gameVersionStrings.addAll(rootProject.ext.gameVersionsList)
-            mainArtifact remapJar
+            mainArtifact jar
             relations {
                 for (final def required in rootProject.ext.requiredProjectFabric) {
                     if (required.toString().trim().length() > 0)
@@ -125,7 +92,7 @@ if (MODRINTH_TOKEN) {
         versionNumber = rootProject.mod_version
         versionType = rootProject.version_type
         versionName = "${rootProject.archives_base_name} ${rootProject.mod_version} Fabric"
-        uploadFile = remapJar
+        uploadFile = jar
         getGameVersions().addAll(rootProject.ext.gameVersionsList)
         loaders = ['fabric']
         changelog = rootProject.ext.v_changelog
