@@ -22,10 +22,11 @@ public class ScreenMixin implements ScreenAccessor {
     @Unique
     private final Screen autoTranslation$_this = (Screen) (Object) this;
 
-    @Inject(method = "init(Lnet/minecraft/client/Minecraft;II)V", at = @At("HEAD"))
+    @Inject(method = "init", at = @At("HEAD"))
     private void initMixin(CallbackInfo ci) {
         ScreenTranslationHelper.setCurrentScreen(autoTranslation$_this);
         ScreenTranslationHelper.initScreenStatus(autoTranslation$_this);
+        ScreenTranslationHelper.ready();
     }
 
     @Override
