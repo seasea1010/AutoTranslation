@@ -12,7 +12,6 @@
     "ServerPlayerMixin"
   ],
   "client": [
-    "ChatComponentMixin",
     "ClientLanguageMixin",
     "FontMixin",
     "MutableComponentMixin",
