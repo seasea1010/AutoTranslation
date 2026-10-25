@@ -24,6 +24,7 @@ public class ScreenMixin implements ScreenAccessor {
 
     @Inject(method = "init(Lnet/minecraft/client/Minecraft;II)V", at = @At("HEAD"))
     private void initMixin(CallbackInfo ci) {
+        ScreenTranslationHelper.setCurrentScreen(autoTranslation$_this);
         ScreenTranslationHelper.initScreenStatus(autoTranslation$_this);
     }
 
