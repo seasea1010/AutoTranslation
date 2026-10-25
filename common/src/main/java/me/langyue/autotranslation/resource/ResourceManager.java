@@ -13,7 +13,7 @@ import me.langyue.autotranslation.TranslatorHelper;
 import me.langyue.autotranslation.command.ResourcePathArgument;
 import me.langyue.autotranslation.translate.TranslatorManager;
 import me.langyue.autotranslation.util.FileUtils;
-import net.minecraft.ResourceLocationException;
+
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.locale.Language;
@@ -147,7 +147,7 @@ public class ResourceManager {
             });
             AutoTranslation.LOGGER.info("Resource loaded: " + file);
         } else {
-            throw new ResourceLocationException("Invalid resource path: " + file);
+            throw new IllegalArgumentException("Invalid resource path: " + file);
         }
     }
 
@@ -160,7 +160,7 @@ public class ResourceManager {
         for (String ns : namespaces) {
             try {
                 loadResource(ns);
-            } catch (ResourceLocationException e) {
+            } catch (IllegalArgumentException e) {
                 AutoTranslation.LOGGER.warn(e.getMessage());
             }
         }
