@@ -15,14 +15,14 @@ public class PlayerChatMessageMixin {
     @Inject(method = "decoratedContent", at = @At("RETURN"))
     private void decoratedContentMixin(CallbackInfoReturnable<Component> cir) {
         if (cir.getReturnValue() instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 
     @Inject(method = "signedContent", at = @At("RETURN"))
     private void signedContentMixin(CallbackInfoReturnable<Component> cir) {
         if (cir.getReturnValue() instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) mutableComponent).at$shouldTranslate(false);
+            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
         }
     }
 }
