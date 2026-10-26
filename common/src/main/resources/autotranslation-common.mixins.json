@@ -13,7 +13,6 @@
   ],
   "client": [
     "ClientLanguageMixin",
-    "FontMixin",
     "MutableComponentMixin",
     "ScreenMixin",
     "TooltipMixin"
