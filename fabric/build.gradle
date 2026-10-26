@@ -29,6 +29,8 @@ sourceSets {
         java {
             // The legacy overlay renderer targets pre-26.1 GUI APIs.
             exclude 'me/langyue/autotranslation/fabric/mixin/GameRendererMixin.java'
+            // Cloth Config 26.3 changed the legacy AutoConfig screen API; temporarily omit old Mod Menu bridge.
+            exclude 'me/langyue/autotranslation/fabric/config/ModMenuIntegration.java'
         }
     }
 }
