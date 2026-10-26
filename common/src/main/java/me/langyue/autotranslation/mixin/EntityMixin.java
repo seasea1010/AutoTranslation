@@ -41,11 +41,5 @@ public class EntityMixin {
         }
     }
 
-    @Inject(method = "sendSystemMessage", at = @At("HEAD"))
-    private void sendSystemMessageMixin(Component component, CallbackInfo ci) {
-        if (component instanceof MutableComponent mutableComponent) {
-            ((MutableComponentAccessor) (Object) (Object) mutableComponent).at$shouldTranslate(false);
-        }
-    }
 
 }
